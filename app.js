@@ -60,6 +60,19 @@ function checkLetter(button) {
   }
 }
 
+function checkWin() {
+  const letterCount = document.querySelectorAll('.letter').length;
+  const shownCount = document.querySelectorAll('.show').length;
+
+  if (letterCount === shownCount) {
+    overlay.className = 'win';
+    overlay.style.display = '';
+  } else if (missed >= 5) {
+    overlay.className = 'lose';
+    overlay.style.display = '';
+  }
+}
+
 /**
  * Click event watching for the start button click
  */
@@ -86,5 +99,6 @@ keyboard.addEventListener('click', (e) => {
       missed++;
       guessTry.parentElement.removeChild(guessTry);
     }
+    checkWin();
   }
 });
