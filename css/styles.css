@@ -77,6 +77,14 @@ button {
 
 /* Phrase */
 
+#phrase ul {
+  margin-top: 0;
+}
+
+#phrase li {
+  margin-top: 1rem;
+}
+
 .letter {
   font-size: var(--font-size-medium);
   height: 65px;
