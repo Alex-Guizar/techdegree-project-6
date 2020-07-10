@@ -1,5 +1,6 @@
 const keyboard = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
+const phraseList = phrase.querySelector('ul');
 const overlay = document.getElementById('overlay');
 const scoreboard = document.getElementById('scoreboard');
 const startGame = document.querySelector('.btn__reset');
@@ -25,7 +26,6 @@ function getRandomPhraseAsArry(arr) {
  * Adds phrase to the display
  */
 function addPhraseToDisplay(arr) {
-  const phraseList = phrase.querySelector('ul');
   for (let i = 0; i < arr.length; i++) {
     const newCharacter = document.createElement('li');
     newCharacter.textContent = arr[i];
@@ -60,6 +60,9 @@ function checkLetter(button) {
   }
 }
 
+/**
+ * Compare letters shown to total letters available to check if there is a win
+ */
 function checkWin() {
   const letterCount = document.querySelectorAll('.letter').length;
   const shownCount = document.querySelectorAll('.show').length;
@@ -75,10 +78,13 @@ function checkWin() {
   }
 }
 
+/**
+ * Reset variables and remove styles/classes for game reset
+ */
 function resetGame() {
   const chosenLetters = document.querySelectorAll('.chosen');
   const guessTry = document.querySelectorAll('.tries');
-  phrase.querySelector('ul').innerHTML = '';
+  phraseList.innerHTML = '';
   missed = 0;
 
   for (let i = 0; i < chosenLetters.length; i++) {
