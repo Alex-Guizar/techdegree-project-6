@@ -94,6 +94,9 @@ button {
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+  -webkit-transition: var(--transition);
+  -o-transition: var(--transition);
+  transition: var(--transition);
 }
 
 .space {

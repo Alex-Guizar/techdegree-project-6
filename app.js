@@ -64,6 +64,8 @@ function checkWin() {
   const letterCount = document.querySelectorAll('.letter').length;
   const shownCount = document.querySelectorAll('.show').length;
 
+  startGame.textContent = "Reset Game";
+
   if (letterCount === shownCount) {
     overlay.className = 'win';
     overlay.style.display = '';
@@ -73,10 +75,29 @@ function checkWin() {
   }
 }
 
+function resetGame() {
+  const chosenLetters = document.querySelectorAll('.chosen');
+  const guessTry = document.querySelectorAll('.tries');
+  phrase.querySelector('ul').innerHTML = '';
+  missed = 0;
+
+  for (let i = 0; i < chosenLetters.length; i++) {
+    chosenLetters[i].classList.remove('chosen');
+    chosenLetters[i].disabled = false;
+  }
+
+  for (let i = 0; i < guessTry.length; i++) {
+    guessTry[i].style.display = '';
+  }
+}
+
 /**
  * Click event watching for the start button click
  */
 startGame.addEventListener('click', () => {
+  if (overlay.className === 'win' || overlay.className === 'lose') {
+    resetGame();
+  }
   const phraseArray = getRandomPhraseAsArry(phrases);
   addPhraseToDisplay(phraseArray);
   overlay.style.display = 'none';
@@ -95,9 +116,11 @@ keyboard.addEventListener('click', (e) => {
     // Check if a letter was not found
     // If so, increment missed variable and remove heart
     if (letterFound === null) {
-      const guessTry = document.querySelector('.tries');
+      const guessTry = document.querySelectorAll('.tries');
       missed++;
-      guessTry.parentElement.removeChild(guessTry);
+      if (missed <= 5) {
+        guessTry[missed-1].style.display = 'none';
+      }
     }
     checkWin();
   }
