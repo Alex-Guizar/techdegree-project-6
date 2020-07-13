@@ -3,6 +3,7 @@ const phrase = document.getElementById('phrase');
 const phraseList = phrase.querySelector('ul');
 const overlay = document.getElementById('overlay');
 const scoreboard = document.getElementById('scoreboard');
+const guessTries = document.querySelectorAll('.tries');
 const startGame = document.querySelector('.btn__reset');
 const phrases = [
   'Without a paddle',
@@ -83,7 +84,6 @@ function checkWin() {
  */
 function resetGame() {
   const chosenLetters = document.querySelectorAll('.chosen');
-  const guessTry = document.querySelectorAll('.tries');
   phraseList.innerHTML = '';
   missed = 0;
 
@@ -92,8 +92,8 @@ function resetGame() {
     chosenLetters[i].disabled = false;
   }
 
-  for (let i = 0; i < guessTry.length; i++) {
-    guessTry[i].style.display = '';
+  for (let i = 0; i < guessTries.length; i++) {
+    guessTries[i].querySelector('img').src = 'images/liveHeart.png';
   }
 }
 
@@ -118,14 +118,14 @@ keyboard.addEventListener('click', (e) => {
     e.target.disabled = true;
     e.target.className = 'chosen';
     const letterFound = checkLetter(e.target);
+    const totalTries = guessTries.length;
 
     // Check if a letter was not found
     // If so, increment missed variable and remove heart
     if (letterFound === null) {
-      const guessTry = document.querySelectorAll('.tries');
       missed++;
-      if (missed <= 5) {
-        guessTry[missed-1].style.display = 'none';
+      if (missed <= 5 && missed !== 0) {
+        guessTries[totalTries-missed].querySelector('img').src = 'images/lostHeart.png';
       }
     }
     checkWin();
